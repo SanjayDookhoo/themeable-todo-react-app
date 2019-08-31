@@ -1,11 +1,17 @@
 import React from "react";
 import Card from "./ListCard"
+import ActionButton from "./ActionButton"
 
 const List = ({title,cards}) => {
     return(
         <div style={styles.container}>
         <h4>{title}</h4>
-        {cards.map(cards => <Card text={cards.text}/>)}
+            {cards.map(cards =>(
+                 <Card key={cards.id} text={cards.text}/> //performance update for react by including the id when mapping
+            ))}
+            <ActionButton />
+            {/* <ActionButton completedList/> */}
+
         </div>
     )
 };

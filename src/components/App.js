@@ -12,7 +12,9 @@ class App extends Component {
         <h2>hello</h2>
         {/* <div style={styles.listContainer}> */}
         {/* <List title="first list"/> */}
-        {lists.map(list => <List title={list.title} cards={list.cards} />)}
+        {lists.map(list => (
+            <List key={list.id} title={list.title} cards={list.cards} /> /*performance update for react by including the id when mapping*/
+          ))} 
         {/* </div> */}
       </div>
     );
