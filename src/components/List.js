@@ -1,21 +1,22 @@
 import React from "react";
 import Card from "./ListCard"
 
-const List = ({title}) => {
+const List = ({title,cards}) => {
     return(
         <div style={styles.container}>
         <h4>{title}</h4>
-        <Card/>
+        {cards.map(cards => <Card text={cards.text}/>)}
         </div>
     )
 };
 
 const styles={
     container: {
-        backgroundColor: "#ccc",
+        backgroundColor: "#dfe3e6",
         borderRadius: 3,
         width: 300,
-        padding:8
+        padding:8,
+        marginBottom: 8
     }
 }
 

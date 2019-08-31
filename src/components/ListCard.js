@@ -1,15 +1,24 @@
 import React from "react";
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent'
 
-const ListCard = () =>{
+const ListCard = ({text}) =>{
     return (
-        <Card >
+        <Card style={styles.cardContainer}>
+            <CardContent>
                 <Typography gutterBottom>
-                Word of the Day
+                {text}
                 </Typography>
+            </CardContent>
         </Card>
     )
+}
+
+const styles = {
+    cardContainer: {
+        marginBottom: 8
+    }
 }
 
 export default ListCard; 
