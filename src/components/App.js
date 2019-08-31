@@ -13,7 +13,11 @@ class App extends Component {
         {/* <div style={styles.listContainer}> */}
         {/* <List title="first list"/> */}
         {lists.map(list => (
-            <List key={list.id} title={list.title} cards={list.cards} /> /*performance update for react by including the id when mapping*/
+            <List 
+              listID={list.id}
+              key={list.id} 
+              title={list.title} 
+              cards={list.cards} /> /*performance update for react by including the id when mapping*/
           ))} 
         {/* </div> */}
       </div>
