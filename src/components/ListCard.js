@@ -17,7 +17,7 @@ const ListCard = ({text}) =>{
 
 const styles = {
     cardContainer: {
-        marginBottom: 8
+        marginTop: 8
     }
 }
 

@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 
 import {connect} from "react-redux"
-import {addCard} from "../actions";
+import {addList, addCard} from "../actions";
 
 class ActionButton extends React.Component{
     state ={
@@ -32,6 +32,16 @@ class ActionButton extends React.Component{
         })
     }
 
+    handleAddList = () => {
+        const {dispatch} = this.props;
+        const {text} = this.state
+
+        if(text){
+            dispatch(addList(text))
+        }
+        return;
+    }
+
     handleAddCard =()=>{
         const {dispatch,listID} = this.props;
         const {text} = this.state;
@@ -46,17 +56,32 @@ class ActionButton extends React.Component{
     }
 
     renderAddButton = () => {
+        const {list} = this.props;
+
+        const buttonText = list? "Add another list": "Add another ToDo Card";
+        const buttonTextOpacity = list ? 1 : 0.5;
+        const buttonTextColor = list? "white" : "inherit"
+        const buttonTextBackground = list? "rgba(0,0,0,0.15)": "inherit"
+
         return (
-            <div onClick={this.openForm} style={styles.addBtnStyle}>
+
+            <div onClick={this.openForm} 
+                style={{
+                    ...styles.openFormButtonGroup,
+                    opacity:buttonTextOpacity, 
+                    color:buttonTextColor, 
+                    backgroundColor:buttonTextBackground
+                    }}>
                 <Icon>add</Icon>
-                <p>Add ToDo Card Item</p>
+                <p>{buttonText}</p>
             </div>
         )
     }
 
     renderForm = () => {
-        // const { list } = this.props;
-
+        const { list } = this.props;
+        const placeholder = list ? "Enter List Title": "Enter ToDo Card";
+        const buttonTitle = list ? "Add List": "Add ToDo Card";
         return <div>
             <Card style={{
                 minHeight: 80,
@@ -65,7 +90,7 @@ class ActionButton extends React.Component{
             }}>
                 {/*an auto height increasing text box*/}
                 <Textarea 
-                    placeholder="enter to do item here"
+                    placeholder={placeholder}
                     autoFocus
                     onBlur={this.closeForm}
                     value={this.state.text}
@@ -83,11 +108,12 @@ class ActionButton extends React.Component{
             </Card>
             <div style={styles.formButtonGroup}>
                 <Button 
-                    onMouseDown={this.handleAddCard} //onMouseDown function fires before onBlur Function, which is why onClick function was not used at this pointt 
+                    //onMouseDown function fires before onBlur Function, which is why onClick function was not used at this pointt 
+                    onMouseDown={list ? this.handleAddList : this.handleAddCard} 
                     variant="contained" 
                     style={{color:"white", backgroundColor:"#5aac44"}}
                 >
-                    Add ToDo Card
+                    {buttonTitle}
 
                 </Button>
 
@@ -106,28 +132,23 @@ class ActionButton extends React.Component{
     }
 
     render(){
-        const { completedList } = this.props;
-        if (completedList)
-            return null;
-        else{
-            if (this.state.formOpen )
-                return this.renderForm();
-            else 
-                return this.renderAddButton();
-        }
+
+    if (this.state.formOpen )
+        return this.renderForm();
+    else 
+        return this.renderAddButton();
 
     }
 }
 
 const styles={
-    addBtnStyle: {
-        opacity: 0.5,
+    openFormButtonGroup: {
         display: "flex",
         alignItems: "center",
-        curson: "pointer",
+        cursor: "pointer",
         borderRadius: 3,
         height: 35,
-        widht: 270,
+        width: 270,
         paddingLeft: 10
     },
     formButtonGroup: {

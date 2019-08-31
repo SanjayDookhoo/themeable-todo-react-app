@@ -9,7 +9,7 @@ const List = ({title,cards,listID}) => {
             <ActionButton listID={listID}/>
             
             {cards.map(cards =>(
-                 <Card key={cards.id} text={cards.text}/> //performance update for react by including the id when mapping
+                 <Card completed key={cards.id} text={cards.text}/> //performance update for react by including the id when mapping
             ))}
 
 
@@ -24,7 +24,7 @@ const styles={
         width: 300,
         padding:8,
         height: "100%",
-        marginBottom: 8
+        marginRight: 8
     }
 }
 
