@@ -1,19 +1,31 @@
 import React from "react";
-import Card from "./ListCard"
-import ActionButton from "./ActionButton"
+import Card from "./ListCard";
+import ActionButton from "./ActionButton";
+import {Droppable} from "react-beautiful-dnd";
 
 const List = ({title,cards,listID}) => {
     return(
-        <div style={styles.container}>
-        <h4>{title}</h4>
-            
-            
-            {cards.map(cards =>(
-                 <Card completed key={cards.id} text={cards.text}/> //performance update for react by including the id when mapping
-            ))}
+        <Droppable droppableId={String(listID)}>
+            {provided =>(
+                <div {...provided.droppableProps} ref={provided.innerRef} style={styles.container}>
+                    <h4>{title}</h4>
+    
+                    {cards.map((card,index) =>(
+                        <Card 
+                            completed 
+                            key={card.id} 
+                            index={index} 
+                            text={card.text} 
+                            id={card.id} 
+                        /> //performance update for react by including the id when mapping
+                    ))}
+    
+                    <ActionButton listID={listID}/>
+                    {provided.placeholder}
+                </div>
+            )}
 
-            <ActionButton listID={listID}/>
-        </div>
+        </Droppable>
     )
 };
 

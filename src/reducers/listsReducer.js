@@ -4,30 +4,60 @@ let cardID=4;
 let listID=2
 
 const initialState = [
+    // {
+    //     title: "To Do",
+    //     id: 0,
+    //     cards: [
+    //         {
+    //             id:0,
+    //             text: "description 1"
+    //         },
+    //         {
+    //             id:1,
+    //             text: "description 2"
+    //         }
+    //     ]
+    // },
+    // {
+    //     title: "Completed",
+    //     id: 1,
+    //     cards: [
+    //         {
+    //             id:2,
+    //             text: "disc 1"
+    //         },
+    //         {
+    //             id:3,
+    //             text: "disc 2"
+    //         }
+    //     ]
+    // }
+
+    //id of list and card cant be the same, dnd is confused (soln: make a custom string, string temporals)
     {
         title: "To Do",
-        id: 0,
+        id: `list-${0}`,
         cards: [
             {
-                id:0,
+                id:`card-${0}`,
                 text: "description 1"
             },
             {
-                id:1,
+                id:`card-${1}`,
                 text: "description 2"
             }
         ]
     },
     {
         title: "Completed",
-        id: 1,
+        id: `list-${1}`,
         cards: [
             {
-                id:2,
+                id:`card-${2}`,
                 text: "disc 1"
             },
             {
-                id:3,
+                id:`card-${3}`,
                 text: "disc 2"
             }
         ]
@@ -40,14 +70,14 @@ const listsReducer = (state = initialState, action) => {
             const newList ={
                 title:action.payload,
                 cards: [],
-                id: listID
+                id: `list-${listID}`
             }
             listID +=1;
             return [...state,newList];
         case CONSTANTS.ADD_CARD:
             const newCard ={
                 text:action.payload.text,
-                id:cardID
+                id: `card-${cardID}`
             }
             cardID+=1;
 
