@@ -6,13 +6,13 @@ const List = ({title,cards,listID}) => {
     return(
         <div style={styles.container}>
         <h4>{title}</h4>
-            <ActionButton listID={listID}/>
+            
             
             {cards.map(cards =>(
                  <Card completed key={cards.id} text={cards.text}/> //performance update for react by including the id when mapping
             ))}
 
-
+            <ActionButton listID={listID}/>
         </div>
     )
 };

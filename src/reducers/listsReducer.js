@@ -55,7 +55,7 @@ const listsReducer = (state = initialState, action) => {
                 if(list.id ===action.payload.listID){
                     return {
                         ...list,
-                        cards: [newCard,...list.cards]
+                        cards: [...list.cards,newCard]
                     }
                 }else {
                     return list;
