@@ -7,8 +7,9 @@ const List = ({title,cards,listID}) => {
         <div style={styles.container}>
         <h4>{title}</h4>
             <ActionButton listID={listID}/>
-            {cards.slice(0).reverse().map(cards =>(
-                 <Card key={cards.id} finished={cards.finished} text={cards.text} listID={listID} cardID={cards.id}/> //performance update for react by including the id when mapping
+            
+            {cards.map(cards =>(
+                 <Card completed key={cards.id} text={cards.text}/> //performance update for react by including the id when mapping
             ))}
 
 

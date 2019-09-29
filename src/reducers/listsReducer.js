@@ -1,17 +1,34 @@
 import {CONSTANTS} from "../actions";
-import produce from "immer"
 
-let listID=1
+let cardID=4;
+let listID=2
+
 const initialState = [
     {
         title: "To Do",
         id: 0,
-        cardCount:1,
         cards: [
             {
                 id:0,
-                text: "Make your first ToDo list!",
-                finished:false
+                text: "description 1"
+            },
+            {
+                id:1,
+                text: "description 2"
+            }
+        ]
+    },
+    {
+        title: "Completed",
+        id: 1,
+        cards: [
+            {
+                id:2,
+                text: "disc 1"
+            },
+            {
+                id:3,
+                text: "disc 2"
             }
         ]
     }
@@ -19,49 +36,33 @@ const initialState = [
 
 const listsReducer = (state = initialState, action) => {
     switch(action.type) {
-        case CONSTANTS.TOGGLE_CARD:
-
-            const nextState = produce(state, draftState => {
-                draftState[action.payload.listID].cards[action.payload.cardID].finished=!draftState[action.payload.listID].cards[action.payload.cardID].finished
-
-            })
-            return nextState;
-
-            // return state;
         case CONSTANTS.ADD_LIST:
             const newList ={
                 title:action.payload,
                 cards: [],
-                id: listID,
-                cardCount:0
+                id: listID
             }
             listID +=1;
             return [...state,newList];
         case CONSTANTS.ADD_CARD:
             const newCard ={
                 text:action.payload.text,
-                id: state[action.payload.listID].cardCount,
-                finished:false //state of completion
+                id:cardID
             }
+            cardID+=1;
 
-
-            const newState = produce(state, draftState => {
-
-                draftState[action.payload.listID].cardCount+=1;
-            })
-
-            const newState2 = newState.map(list=>{
+            const newState = state.map(list=>{
                 if(list.id ===action.payload.listID){
                     return {
                         ...list,
-                        cards: [...list.cards,newCard]
+                        cards: [newCard,...list.cards]
                     }
                 }else {
                     return list;
                 }
             });
 
-            return newState2;
+            return newState;
 
         default:
             return state;

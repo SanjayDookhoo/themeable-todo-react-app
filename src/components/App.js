@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import List from "./List";
 import {connect} from "react-redux"
 import ActionButton from "./ActionButton"
-
 // import logo from './logo.svg';
 // import './App.css';
 
@@ -11,7 +10,7 @@ class App extends Component {
     const {lists} = this.props;
     return (
       <div className="App">
-
+        <h2>hello</h2>
         <div style={styles.listContainer}>
           
           {/* <List title="first list"/> */}

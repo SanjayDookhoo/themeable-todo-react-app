@@ -37,10 +37,6 @@ class ActionButton extends React.Component{
         const {text} = this.state
 
         if(text){
-            this.setState({
-                text: "" //resets the input field for the next time a card needs to be added
-            })
-            
             dispatch(addList(text))
         }
         return;
