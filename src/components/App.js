@@ -3,13 +3,31 @@ import List from "./List";
 import {connect} from "react-redux"
 import ActionButton from "./ActionButton"
 import {DragDropContext} from "react-beautiful-dnd";
+import { sort} from "../actions";
 // import logo from './logo.svg';
 // import './App.css';
 
 class App extends Component {
 
-  onDragEnd = () => {
+  onDragEnd = (result) => {
     //reordering logic
+    //create redux action and reordering logic happens in reducer
+    const {destination, source, draggableId} =result;
+
+    //if destination is null, it was not dropped in a droppable location
+    if(!destination){
+      return;
+    }
+
+    this.props.dispatch(
+      sort(
+        source.droppableId,
+        destination.droppableId,
+        source.index,
+        destination.index,
+        draggableId
+      )
+    );
   }
 
   render () {
