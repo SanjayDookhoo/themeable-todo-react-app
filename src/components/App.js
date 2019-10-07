@@ -6,6 +6,12 @@ import {DragDropContext} from "react-beautiful-dnd";
 import { sort} from "../actions";
 // import logo from './logo.svg';
 // import './App.css';
+import styled from "styled-components";
+
+const ListContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`
 
 class App extends Component {
 
@@ -37,7 +43,7 @@ class App extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}> 
         <div className="App">
           <h2>hello</h2>
-          <div style={styles.listContainer}>
+          <ListContainer>
             
             {/* <List title="first list"/> */}
             {lists.map(list => (
@@ -48,7 +54,7 @@ class App extends Component {
                   cards={list.cards} /> 
               ))} 
               <ActionButton list />
-          </div>
+          </ListContainer>
         </div>
       </DragDropContext>
     );
