@@ -32,10 +32,4 @@ const ListCard = ({text,id,index}) =>{
     )
 }
 
-const styles = {
-    cardContainer: {
-        marginTop: 8
-    }
-}
-
 export default ListCard; 

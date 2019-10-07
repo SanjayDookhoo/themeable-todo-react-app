@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import List from "./List";
 import {connect} from "react-redux"
 import ActionButton from "./ActionButton"
-import {DragDropContext} from "react-beautiful-dnd";
+import {DragDropContext,Droppable} from "react-beautiful-dnd";
 import { sort} from "../actions";
 // import logo from './logo.svg';
 // import './App.css';
@@ -18,7 +18,7 @@ class App extends Component {
   onDragEnd = (result) => {
     //reordering logic
     //create redux action and reordering logic happens in reducer
-    const {destination, source, draggableId} =result;
+    const {destination, source, draggableId,type} =result;
 
     //if destination is null, it was not dropped in a droppable location
     if(!destination){
@@ -31,7 +31,8 @@ class App extends Component {
         destination.droppableId,
         source.index,
         destination.index,
-        draggableId
+        draggableId,
+        type
       )
     );
   }
@@ -43,30 +44,31 @@ class App extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}> 
         <div className="App">
           <h2>hello</h2>
-          <ListContainer>
+          <Droppable droppableId="all-lists" direction="horizontal" type="list"> 
+            {provided=>(
+              <ListContainer {...provided.droppableProps} ref={provided.innerRef}>
             
-            {/* <List title="first list"/> */}
-            {lists.map(list => (
-                <List 
-                  listID={list.id}
-                  key={list.id} /*performance update for react by including the id when mapping*/
-                  title={list.title} 
-                  cards={list.cards} /> 
-              ))} 
-              <ActionButton list />
-          </ListContainer>
+                {/* <List title="first list"/> */}
+                {lists.map((list,index) => (
+                    <List 
+                      listID={list.id}
+                      key={list.id} /*performance update for react by including the id when mapping*/
+                      title={list.title} 
+                      cards={list.cards}
+                      index={index} /> 
+                  ))} 
+                  {provided.placeholder}
+                  <ActionButton list />
+              </ListContainer>
+            )}
+          </Droppable>
+
+          
         </div>
       </DragDropContext>
     );
   }
 }
-
-const styles ={
-  listContainer: {
-    display: "flex",
-    flexDirection:"row"
-  }
-};
 
 const mapStateToProps = state => ({
   lists: state.lists
